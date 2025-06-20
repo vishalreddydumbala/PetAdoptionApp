@@ -1,28 +1,42 @@
-Pet Adoption API Documentation
+# Pet Adoption API Documentation
+
 This REST API provides endpoints for managing a pet adoption application, including listing pets, searching and filtering pets, adopting pets, managing favorites, and viewing adoption history.
-Base URL
+
+---
+
+## Base URL
+
+```
 http://<your-server>:3000/api
-Endpoints
-1. Get All Pets
+```
+
+---
+
+## Endpoints
+
+### 1. Get All Pets
+
 Retrieve a paginated list of pets with optional search and filtering.
 
-URL: /pets
-Method: GET
-Query Parameters:
-page (optional, integer, default: 1): Page number for pagination.
-limit (optional, integer, default: 10): Number of pets per page.
-search (optional, string): Search pets by name (case-insensitive).
-breed (optional, string): Filter by pet breed (e.g., "Labrador").
-gender (optional, string): Filter by pet gender (e.g., "Male", "Female").
-minAge (optional, integer): Minimum pet age.
-maxAge (optional, integer): Maximum pet age.
-minPrice (optional, integer): Minimum pet price.
-maxPrice (optional, integer): Maximum pet price.
+- **URL:** `/pets`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `page` (optional, integer, default: 1): Page number for pagination.
+  - `limit` (optional, integer, default: 10): Number of pets per page.
+  - `search` (optional, string): Search pets by name (case-insensitive).
+  - `breed` (optional, string): Filter by pet breed (e.g., "Labrador").
+  - `gender` (optional, string): Filter by pet gender (e.g., "Male", "Female").
+  - `minAge` (optional, integer): Minimum pet age.
+  - `maxAge` (optional, integer): Maximum pet age.
+  - `minPrice` (optional, integer): Minimum pet price.
+  - `maxPrice` (optional, integer): Maximum pet price.
 
+#### Response:
 
-Response:
-Status: 200 OK
-Body:{
+- **Status:** `200 OK`
+
+```json
+{
   "pets": [
     {
       "_id": "string",
@@ -41,14 +55,20 @@ Body:{
   "pages": number,
   "currentPage": number
 }
+```
 
+#### Errors:
 
-Error (500):{ "error": "string" }
+- `500 Internal Server Error`
 
+```json
+{ "error": "string" }
+```
 
+#### Example:
 
-
-Example Response:{
+```json
+{
   "pets": [
     {
       "_id": "1234567890abcdef12345678",
@@ -67,21 +87,25 @@ Example Response:{
   "pages": 1,
   "currentPage": 1
 }
+```
 
+---
 
+### 2. Get Pet by ID
 
-2. Get Pet by ID
 Retrieve details of a specific pet by its ID.
 
-URL: /pets/:id
-Method: GET
-URL Parameters:
-id (required, string): MongoDB ObjectId of the pet.
+- **URL:** `/pets/:id`
+- **Method:** `GET`
+- **URL Parameters:**
+  - `id` (required, string): MongoDB ObjectId of the pet.
 
+#### Response:
 
-Response:
-Status: 200 OK
-Body:{
+- **Status:** `200 OK`
+
+```json
+{
   "_id": "string",
   "name": "string",
   "age": number,
@@ -93,17 +117,26 @@ Body:{
   "adoptionDate": "string (ISO 8601)" | null,
   "isFavorite": boolean
 }
+```
 
+#### Errors:
 
-Error (404):{ "error": "Pet not found" }
+- `404 Not Found`
 
+```json
+{ "error": "Pet not found" }
+```
 
-Error (500):{ "error": "string" }
+- `500 Internal Server Error`
 
+```json
+{ "error": "string" }
+```
 
+#### Example:
 
-
-Example Response:{
+```json
+{
   "_id": "1234567890abcdef12345678",
   "name": "Max",
   "age": 2,
@@ -115,22 +148,27 @@ Example Response:{
   "adoptionDate": null,
   "isFavorite": false
 }
+```
 
+---
 
+### 3. Adopt a Pet
 
-3. Adopt a Pet
 Mark a pet as adopted and record the adoption in history.
 
-URL: /pets/:id/adopt
-Method: POST
-URL Parameters:
-id (required, string): MongoDB ObjectId of the pet.
+- **URL:** `/pets/:id/adopt`
+- **Method:** `POST`
+- **URL Parameters:**
+  - `id` (required, string): MongoDB ObjectId of the pet.
 
+- **Request Body:** None
 
-Request Body: None
-Response:
-Status: 200 OK
-Body:{
+#### Response:
+
+- **Status:** `200 OK`
+
+```json
+{
   "message": "You've now adopted <pet_name>",
   "pet": {
     "_id": "string",
@@ -145,20 +183,32 @@ Body:{
     "isFavorite": boolean
   }
 }
+```
 
+#### Errors:
 
-Error (400):{ "error": "Pet already adopted" }
+- `400 Bad Request`
 
+```json
+{ "error": "Pet already adopted" }
+```
 
-Error (404):{ "error": "Pet not found" }
+- `404 Not Found`
 
+```json
+{ "error": "Pet not found" }
+```
 
-Error (500):{ "error": "string" }
+- `500 Internal Server Error`
 
+```json
+{ "error": "string" }
+```
 
+#### Example:
 
-
-Example Response:{
+```json
+{
   "message": "You've now adopted Max",
   "pet": {
     "_id": "1234567890abcdef12345678",
@@ -173,28 +223,50 @@ Example Response:{
     "isFavorite": false
   }
 }
+```
 
+---
 
+### 4. Toggle Favorite Status
 
-4. Toggle Favorite Status
 Toggle the favorite status of a pet.
 
-URL: /pets/:id/favorite
-Method: POST
-URL Parameters:
-id (required, string): MongoDB ObjectId of the pet.
+- **URL:** `/pets/:id/favorite`
+- **Method:** `POST`
+- **URL Parameters:**
+  - `id` (required, string): MongoDB ObjectId of the pet.
 
+- **Request Body:** None
 
-Request Body: None
-Response:
-Status: 200 OK
-Body:{
+#### Response:
+
+- **Status:** `200 OK`
+
+```json
+{
   "_id": "string",
   "name": "string",
   "age": number,
   "price": number,
+  "image": "string",
+  "breed": "string",
+  "gender": "string",
+  "isAdopted": boolean,
+  "adoptionDate": "string (ISO 8601)" | null,
+  "isFavorite": boolean
+}
+```
 
+#### Errors:
 
+- `404 Not Found`
 
+```json
+{ "error": "Pet not found" }
+```
 
+- `500 Internal Server Error`
 
+```json
+{ "error": "string" }
+```
