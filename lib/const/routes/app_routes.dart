@@ -4,6 +4,8 @@ import 'package:petadoptionapp/const/routes/error_page.dart';
 import 'package:petadoptionapp/const/routes/route_constants.dart';
 
 import 'package:petadoptionapp/counter/counter.dart';
+import 'package:petadoptionapp/modules/home_page.dart';
+import 'package:petadoptionapp/modules/settings_page.dart';
 
 
 class AppRoutes {
@@ -19,18 +21,18 @@ class AppRoutes {
       // ),
       //
       // // Counter route
-      // GoRoute(
-      //   path: RouteConstants.counterPath,
-      //   name: RouteConstants.counter,
-      //   builder: (context, state) => const PetAdoptionApp(),
-      // ),
+      GoRoute(
+        path: RouteConstants.counterPath,
+        name: RouteConstants.counter,
+        builder: (context, state) => const HomePage(),
+      ),
 
       // Pet list route
-      // GoRoute(
-      //   path: RouteConstants.petListPath,
-      //   name: RouteConstants.petList,
-      //   builder: (context, state) => const PetListPage(),
-      // ),
+      GoRoute(
+        path: RouteConstants.petListPath,
+        name: RouteConstants.petList,
+        builder: (context, state) => const SettingsPage(),
+      ),
       //
       // // Pet details route with parameter
       // GoRoute(
