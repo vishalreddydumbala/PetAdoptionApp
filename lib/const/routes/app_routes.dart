@@ -8,22 +8,22 @@ import 'package:petadoptionapp/counter/counter.dart';
 
 class AppRoutes {
   static final GoRouter router = GoRouter(
-    initialLocation: RouteConstants.petListPath,
+    initialLocation: RouteConstants.counterPath,
     debugLogDiagnostics: true,
     routes: [
       // Home/Counter route (keeping your existing counter page as home for now)
-      GoRoute(
-        path: RouteConstants.home,
-        name: RouteConstants.home,
-        builder: (context, state) => const CounterPage(),
-      ),
-
-      // Counter route
-      GoRoute(
-        path: RouteConstants.counterPath,
-        name: RouteConstants.counter,
-        builder: (context, state) => const CounterPage(),
-      ),
+      // GoRoute(
+      //   path: RouteConstants.home,
+      //   name: RouteConstants.home,
+      //   builder: (context, state) => const PetAdoptionApp(),
+      // ),
+      //
+      // // Counter route
+      // GoRoute(
+      //   path: RouteConstants.counterPath,
+      //   name: RouteConstants.counter,
+      //   builder: (context, state) => const PetAdoptionApp(),
+      // ),
 
       // Pet list route
       // GoRoute(
